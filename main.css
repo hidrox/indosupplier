@@ -66,10 +66,10 @@ a{
 #map-svg{
   width:800px;
 }
-object path{
+path{
   transition: all 300ms;
 }
-object path:hover{
+path:hover{
   fill:#ccc;
 }
 .sv-green{
