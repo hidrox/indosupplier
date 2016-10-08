@@ -57,7 +57,7 @@ $('#search-location').html(locationOption);
 
 // map click
 
-$('object').on('click','path',function(){
+$('#map-svg').on('click','path',function(){
   var t = $('svg').position().top;
   var l = $('svg').position().left;
   var d = Province[$(this).index()].split(':');
