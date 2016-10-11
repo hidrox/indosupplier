@@ -38,7 +38,7 @@ a{
 
 
 /* 
- * Homepage ...............................
+ * Home ...............................
  */
 
 
@@ -237,7 +237,7 @@ footer > span{
 
 
 /* 
- * main ...............................
+ * Articles ...............................
  */
  
  h1{
@@ -280,13 +280,18 @@ h3{
   display:inline-block;
   font-size:16px;
   font-weight:700;
-  margin-left:280px;
+  margin-left:40px;
 }
 #nav-category{
   display:inline-block;
   font-size:14px;
   font-weight:700;
-  margin-left:40px;
+  margin-left:280px;
+}
+
+#Preloader{
+  position: absolute;
+  left: 240px;
 }
 
 #nav-location:before,
