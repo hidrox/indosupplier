@@ -96,6 +96,7 @@ function getOut(){
   $('#nav > .out').css({display:'inline-block'})
   $('#main-cov > *').hide()
   $('#main-cov > .out').show()
+  $('#main-iklan').html('')
   setTimeout(function(){$('#nav-login').click()},1000);
 }
 
