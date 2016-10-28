@@ -1,0 +1,302 @@
+<!doctype html>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+  firebase.initializeApp({
+    apiKey: "AIzaSyDcUTSUgS81UJnnFpRn4DeFnRctHw_rXiI",
+    authDomain: "indosupplier1.firebaseapp.com",
+    databaseURL: "https://indosupplier1.firebaseio.com",
+    storageBucket: "indosupplier1.appspot.com",
+    messagingSenderId: "402762173507"
+  });
+</script>
+
+<style></style>
+
+<div id='center'>
+  <div id='head' style='display:none;'>
+    <div id='nama'></div>
+    <div id='email'></div>
+  </div>
+
+  <div id='nav'>
+    <div id='nav-login' class='b out' i='0'>Login</div>
+    <div id='nav-register' class='b out' i='1'>Register</div>
+    <div id='nav-add' class='b' i='0'>+</div>
+    <div id='nav-iklan' class='b' i='0'>Iklan</div>
+    <div id='nav-account' class='b' i='1'>Account</div>
+    <div id='nav-logout' class='b'>Logout</div>
+  </div>
+  <div id='warn' style='display:none;'>Please verify your email account first.</div>
+  
+
+  <div id='main'>
+    <div id='main-cov'>
+      <div id='main-login' class='out'>
+        <div id="login">
+          <input placeholder='Email' type='email' id='l-email' value='zzz2@mail.com'/>
+          <input placeholder='Password' type='password' id='l-password' value='zzzzzz'/>
+          <div class="t-login button" id='l-login'>Login</div>
+          <div class='info'>Please login first.</div>
+        </div>
+      </div>
+      <div id='main-register' class='out'>
+        <div id="register">
+          <input placeholder='Nama' id='r-nama'/>
+          <input placeholder='Email' type='email' id='r-email'/>
+          <input placeholder='Password' type='password' id='r-password'/>
+          <div class="t-login button" id='r-register'>Register</div>
+          <div class='info'></div>
+        </div>
+      </div>
+      <div id='main-iklan'></div>
+      <div id='main-account'></div>
+    </div>
+  </div>
+</div>
+
+
+
+<script src='var.js'></script>
+<script src='auth.js'></script>
+<script src='data.js'></script>
+<script>
+
+
+// auto 
+// generate
+// select-option
+var optionCategory;
+var optionLocation;
+function genSelectoption(){
+  var c='';
+  var l='';
+  for(var i=0;i<Category.length;i++){
+    c+='<option value="'+Category[i]+'">'+Category[i]
+    .replace(/-/g,' & ')
+    .toProperCase()+'</option>';
+  }
+  for(var i=0;i<Province.length;i++){
+    l+='<option value="'+Province[i].split(':')[0]+'">'+Province[i]
+    .split(':')[0]
+    .replace(/_/g,' ')
+    .toProperCase()+'</option>';
+  }
+  optionCategory='<select>'+c+'</select>';
+  optionLocation='<select>'+l+'</select>';
+} genSelectoption();
+
+
+// generate
+// iklan lists
+function genIklan(x){
+  var db=x===0?IklanExp:x;
+  var iklan='';
+  var iklanCount=0;
+  Object.keys(db).sort().reverse().forEach(function(i){
+    var d=db[i].data.split('|');
+    x===0?iklanCount='unsaved':iklanCount++;
+    iklan+='\
+<div class="iklan" pid="'+i+'">\
+<div class="i-count">'+iklanCount+'</div>\
+<div class="i-editcov">\
+  <div class="i-edit" style="display:inline-block">Edit</div>\
+  <div class="i-cancel">Cancel</div>\
+  <div class="i-save">Save</div>\
+  <div class="i-delete">Delete</div>\
+</div>\
+<div t="Status" class="i-status"><b>'+d[0].split(',')[0]+'</b> <span>'+d[0].split(',')[1]+'</span></div>\
+<div t="Kategori" class="i-kategori">'+d[1]+'</div>\
+<div t="Lokasi" class="i-lokasi">'+d[2]+'</div>\
+<div t="Judul" class="i-judul ed">'+d[3]+'</div>\
+<img t="Foto" class="i-foto" src="'+d[5]+'" path="'+d[5]+'"/>\
+<input class="i-upload" type="file"/>\
+<div t="Isi" class="i-isi ed">'+d[4]+'</div>\
+<div t="Nama Perusahaan" class="i-nama ed">'+d[6]+'</div>\
+<div t="Telp/Hp" class="i-telp ed">'+d[7]+'</div>\
+<div t="Alamat" class="i-alamat ed">'+d[8]+'</div>\
+<div t="Deskripsi Perusahaan" class="i-deskripsi ed">'+d[9]+'</div>\
+<div t="Produk/Jasa" class="i-produk ed">'+d[10]+'</div>\
+<div t="Links" class="i-links ed">'+d[11]+'</div>\
+</div>'
+  });
+  if(db===IklanExp){
+    if($('#main-iklan > .iklan[pid=x]').length>0)return;
+    $('#main-iklan').prepend(iklan)
+  }else{
+    $('#main-iklan').html(iklan)
+    $('#nav-iklan').html('Iklan ('+iklanCount+')')
+  }
+} //..
+
+// generate
+// user account
+function genAccount(){
+  $('#nama').text(FXR.user.displayName)
+  $('#email').text(FXR.user.email)  
+  $('#main-account').html('\
+<div id="account">\
+<div t="Nama" class="ed" id="a-nama">'+FXR.user.displayName+'</div>\
+<div t="Email" class="ed" id="a-email">'+FXR.user.email+'</div>\
+<div t="Send email for Password reset" id="a-reset">Reset</div>\
+<div class="i-editcov">\
+  <div class="i-edit button" style="display:inline-block;">Edit</div>\
+  <div class="i-cancel button">Cancel</div>\
+  <div class="i-save button">Save</div>\
+</div>\
+<div class="info"></div>\
+</div>'
+  );
+} //..
+
+
+// iklan
+// edit & save
+var iklanTemp;
+$('#main-iklan').on('click','.i-edit',function(){
+  iklanTemp=$(this).parent().parent().html();
+  $(this).parent().siblings().each(function(){
+    $(this).is('.ed') && $(this).attr('contenteditable','');
+  });
+  var kat=$(this).parent().siblings('.i-kategori').text();
+  var lok=$(this).parent().siblings('.i-lokasi').text();
+  $(this).parent().siblings('.i-kategori').html(optionCategory).children().children('[value="'+kat+'"]').attr('selected','')
+  $(this).parent().siblings('.i-lokasi').html(optionLocation).children().children('[value="'+lok+'"]').attr('selected','')
+  $(this).css('display','none').siblings().css('display','inline-block')
+  $(this).parent().siblings('.i-upload').show()
+})
+$('#main-iklan').on('click','.i-cancel',function(){
+  $(this).parent().parent().html(iklanTemp);
+});
+$('#main-iklan').on('click','.i-save',function(){
+  if($(this).text()!=='Save')return;
+  $(this).text('Saving..')
+  var x=$(this).parent().parent();
+  var p=x.attr('pid')
+  var upload=x.find('.i-upload')[0];
+  if(upload.files && upload.files[0]){
+    FXR.data.upload_sg('img',upload.files[0],function(path){
+      x.find('.i-foto').attr('path',path)
+      _next();
+    });
+  }else{_next()}
+  function _next(){
+  var d=
+x.find('.i-status > b').text()+','+
+x.find('.i-status > span').text()+'|'+
+x.find('.i-kategori > select').val()+'|'+
+x.find('.i-lokasi > select').val()+'|'+
+x.find('.i-judul').text()+'|'+
+x.find('.i-isi').text()+'|'+
+x.find('.i-foto').attr('path')+'|'+
+x.find('.i-nama').text()+'|'+
+x.find('.i-telp').text()+'|'+
+x.find('.i-alamat').text()+'|'+
+x.find('.i-deskripsi').text()+'|'+
+x.find('.i-produk').text()+'|'+
+x.find('.i-links').text();
+    FXR.data.upload_db(FXR.user.uid,p,d)
+  }
+});
+$('#main-iklan').on('click','.i-delete',function(){
+  if(confirm("Delete this item?") === true){
+    var p=$(this).parent().parent().attr('pid');
+    p.length > 1 && FXR.data.remove_db(p);
+    $(this).parent().parent().remove()
+  }
+});
+$('#main-iklan').on('change','.i-upload',function(){
+  var el=$(this)
+  if (this.files && this.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e){
+        el.siblings('img').attr('src',e.target.result)
+      };
+      reader.readAsDataURL(this.files[0]);
+  }
+});
+
+
+
+// account
+// edit & save
+var accountTemp;
+var accountTempNama;
+var accountTempPass;
+$('#main-account').on('click','.i-edit',function(){
+  accountTemp=$(this).parent().parent().html();
+  accountTempNama=$(this).parent().siblings('#a-nama').text();
+  accountTempEmail=$(this).parent().siblings('#a-email').text();
+  $(this).parent().siblings().each(function(){
+    $(this).is('.ed') && $(this).attr('contenteditable','');
+  });
+  $('#a-password,#a-password2').text('')
+  $(this).css('display','none').siblings().css('display','inline-block')
+})
+$('#main-account').on('click','.i-cancel',function(){
+  $(this).parent().parent().html(accountTemp);
+});
+
+$('#main-account').on('click','.i-save',function(){
+  accountTempNama!==$(this).parent().siblings('#a-nama').text()
+    && FXR.auth.update_name($(this).parent().siblings('#a-nama').text());
+  accountTempEmail!==$(this).parent().siblings('#a-email').text()
+    && FXR.auth.update_email($(this).parent().siblings('#a-email').text());
+  $(this).parent().parent().html(accountTemp);
+  $(this).css('display','none')
+    .siblings('.i-cancel').css('display','none')
+    .siblings('.i-edit').css('display','inline-block');
+});
+$('#main-account').on('click','#a-reset',function(e){
+  var el=$(this)
+  if($(this).text()==='Reset'){
+    $(this).text('sending email..')
+    FXR.auth.reset(FXR.user.email,function(){
+      el.text('Email sent.')
+    },el);
+  }
+});
+
+
+
+
+
+// login
+// register
+// reset pass
+$('#l-login').on('click',function(){
+  if($(this).text()==='Login'){
+    FXR.auth.signin(
+      $('#l-email').val(),
+      $('#l-password').val()
+    );
+    $(this).text('signing in..')
+  }
+});
+$('#r-register').on('click',function(){
+  if($(this).text()==='Register'){
+    FXR.auth.register(
+      $('#r-nama').val(),
+      $('#r-email').val(),
+      $('#r-password').val()
+    );
+    $(this).text('registering..')
+  }
+});
+
+
+// navs
+$('#nav').on('click','div',function(){
+  $(this).addClass('on').siblings().removeClass('on');
+  $(this).is('[i]') && $('#main').animate({scrollLeft:$(this).attr('i')*$(document).width()});
+});
+$('#nav-logout').on('click',function(){
+    confirm("Logout?") === true && FXR.auth.signout();
+})
+$('#nav-add').on('click',function(){
+  genIklan(0)
+})
+
+</script>
+
