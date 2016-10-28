@@ -61,7 +61,7 @@ a:hover{text-decoration:underline}
 
 
 
-::-webkit-scrollbar{display:none}
+#main::-webkit-scrollbar{display:none}
 #main{
   overflow:scroll;
   overflow:-moz-scrollbars-none;
