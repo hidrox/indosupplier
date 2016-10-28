@@ -298,6 +298,10 @@ $('#nav-logout').on('click',function(){
     confirm("Logout?") === true && FXR.auth.signout();
 })
 $('#nav-add').on('click',function(){
+  if(FXR.user.emailVerified !== true){
+    alert('Please verify your email first.')
+    return
+  }
   genIklan(0)
 })
 
