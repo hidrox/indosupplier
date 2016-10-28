@@ -1,0 +1,496 @@
+*{
+  padding:0;
+  margin:0;
+  border:0;
+  outline:0;
+  box-sizing:border-box;
+}
+html{
+  position:relative;
+  background:#fff;
+  overflow-x:hidden;
+  overflow-y:scroll;
+}
+html,a,input{
+  color:#555;
+  font:500 16px &#39;Helvetica Neue&#39;,&#39;Helvetica&#39;,&#39;Liberation Sans&#39;,arial;
+  text-decoration:none;
+}
+h1{font-size:20px}
+a:hover{text-decoration:underline}
+::before,::after{content:&#39;&#39;;position:absolute}
+.c{width:100%;text-align:center}
+.b{cursor:default!important;-moz-user-select:none;-webkit-user-select:none;user-select:none}
+#site{display:none}
+
+/* head */
+#head &gt; a{
+  display:inline-block;
+  margin:30px 0 30px 0;
+  width:200px;
+  height:150px;
+  background-image:url(//imgh.us/indosupplier-logo.png);
+  background-position:center;
+  background-repeat:no-repeat;
+}
+
+/* static page text */
+#text{
+  display:inline-block;
+  max-width:100%;
+  width:800px;
+  padding:10px 30px 30px 30px;
+  text-align:left;
+}
+#text h1 &gt; a{
+  display:inline-block;
+  font-size: 30px;
+  font-weight:700;
+  padding:10px 0;
+  letter-spacing:-1px;
+}
+
+/* map */
+#map{
+  position:relative;
+  width:100%;
+  text-align:center;
+}
+#map-wrapper{
+  position:relative;
+  display:inline-block;
+  width:800px;
+  margin-left:-50px;
+}
+#map-svg{
+  width:800px;
+}
+path{
+  transition: all 300ms;
+}
+path:hover,
+.path-hover{
+  fill:#bbb;
+}
+.sv-green{
+  fill:#7da81d!important;
+}
+#map-tooltip{
+  position:absolute;
+  display:block;
+  top:0;
+  left:0;
+  color:#4d4d4d;
+  font-size:14px;
+  font-weight:900;
+  line-height:14px;
+}
+#map-tooltip &gt; b{
+ font-weight:700;
+ font-size:12px;
+}
+.map-dot{
+  position:absolute;
+  display:none;
+  padding:0 4px 1px 4px;
+  background:#e34038;
+  color:#fff;
+  border-radius:2px;
+  font-size:10px;
+  font-weight:700;
+  z-index:1;
+}
+#map-title{
+  margin:10px 0 0 0;
+  display:inline-block;
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* category  */
+#cat{
+  padding:0 30px 50px 30px;
+}
+.cat-wrapper{
+  display:inline-block;
+  max-width:900px;
+}
+.cat-wrapper &gt; a{
+  display:inline-block;
+  width:120px;
+  height:100px;
+  text-align:center;
+  background-size:60px;
+  background-position:center center;
+  background-repeat:no-repeat;
+  vertical-align:top;
+  margin:40px 0 0 0;
+  padding:94px 0 0 0;
+  font-size:14px;
+  font-weight:700;
+  line-height:14px;
+  transition: all 300ms;
+}
+.cat-wrapper &gt; a:hover{
+  transform: scale(1.2);
+}
+.agraris{ background-image:url(//imgh.us/indosupplier-crops.svg) }
+.makanan{ background-image:url(//imgh.us/indosupplier-egg.svg) }
+.fashion{ background-image:url(//imgh.us/indosupplier-tie.svg) }
+.hobi{ background-image:url(//imgh.us/indosupplier-soccer.svg) }
+.kesehatan{ background-image:url(//imgh.us/indosupplier-hospital.svg) }
+.elektronik{ background-image:url(//imgh.us/indosupplier-cpu.svg) }
+.otomotif{ background-image:url(//imgh.us/indosupplier-car.svg) }
+.perabot{ background-image:url(//imgh.us/indosupplier-chair.svg) }
+.industri{ background-image:url(//imgh.us/indosupplier-machine.svg) }
+.kreatif{ background-image:url(//imgh.us/indosupplier-green.svg) }
+.konstruksi{ background-image:url(//imgh.us/indosupplier-gerobak.svg) }
+.properti{ background-image:url(//imgh.us/indosupplier-property.svg) }
+.jasa{ background-image:url(//imgh.us/indosupplier-engineer.svg) }
+.sewa{ background-image:url(//imgh.us/indosupplier-price.svg) }
+
+/* search  */
+.cari-input{
+  max-width:60%;
+  width:400px;
+  height:50px;
+  background:none;
+  color:#336699;
+  border:#336699 solid 2px;
+  border-top-left-radius:8px;
+  border-bottom-left-radius:8px;
+  font-size:20px;
+  padding:0 20px;
+  margin:30px 0;
+}
+.cari-submit{
+  width:80px;
+  height:50px;
+  background:#336699;
+  color:#fff;
+  text-align:center;
+  font-size:20px;
+  font-family:arial;
+  border-top-right-radius:8px;
+  border-bottom-right-radius:8px;
+  margin:-5px;
+}
+.cari-submit:hover{
+  background:#3973ac;
+}
+
+/* footer  */
+#foot{
+  padding:50px 30px;
+}
+#foot &gt; a{
+  display:inline-block;
+  margin:4px 10px;
+  font-size:13px;
+}
+.foot-copyright{
+  font-size:11px!important;
+  font-weight:900;
+}
+.foot-call{
+  display:inline-block;
+  background:#469315;
+  color:#fff;
+  padding:3px 10px;
+  font-weight:700;
+  font-size:13px;
+  border-radius:2px;
+  margin:20px 0 0 50px;
+}
+
+
+/*
+ * Articles ...
+ */
+#Loader{
+  position:absolute;
+  left:240px;
+  top:12px;
+  display:none;
+}
+#nav{
+  z-index:5;
+  position:fixed;
+  top:0;
+  left:0;
+  min-height:44px;
+  width:100%;
+  background-color:#469315;
+  border-bottom:#2e7203 solid 1px;
+  color:#fff;
+  padding:0 30px 0 30px;
+}
+#nav select{
+  position:relative;
+  display:inline-block;
+  color: #fff;
+  font-family: arial;
+  font-weight: 700;
+  font-size:13px;
+  background:none;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+#nav select option{
+  background: #fff;
+  color: #000;
+  font-weight: 500;
+  padding:1px 4px;
+  border:none;
+}
+#nav select option:disabled{
+  font-weight: 900;
+}
+#nav &gt; d{
+  display:inline-block;
+  vertical-align:top;
+}
+.nav-logo{
+  margin:9px 90px 0 0;
+  height:25px;
+  width:180px;
+  background-image:url(//imgh.us/indosupplier-logo-tipis.png);
+  background-position:left 0 top 0;
+  background-repeat:no-repeat;
+}
+.nav-home{
+  font-size:12px;
+  font-weight:900;
+  margin:15px 28px 0 0;
+  padding:2px 8px;
+  border-radius:2px;
+  background: #fff;
+  color: #469315;
+}
+.nav-category,
+.nav-location{
+  padding:0 0 0 16px;
+  margin:13px 15px 0 0;
+}
+.nav-location:before,
+.nav-category:before{
+  width:0;
+  height:0;
+  border: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #fff;
+  margin:9px 0 0 -13px;
+}
+.nav-home:hover,
+.nav-add:hover{
+  transform: scale(1.1);
+}
+.nav-search-input{
+  margin:0 0 0 0;
+  width:300px;
+  height:44px;
+  padding:0 14px;
+  vertical-align:top;
+  color:#fff;
+  font-size:16px;
+  cursor:text;
+  background:#44821c;
+  box-shadow:inset 0 0 3px rgba(0,0,0,0.1);
+}
+.nav-search-submit{
+  width:22px;
+  height:22px;
+  line-height:22px;
+  text-align:center;
+  color:#fff;
+  font-size:24px;
+  vertical-align:top;
+  background:none;
+  margin:12px 10px 0 -34px;
+  cursor:pointer;
+}
+.nav-search-submit:hover{
+  transform: scale(1.2);
+}
+.nav-pasang{
+  position:absolute;
+  right:30px;
+  margin:15px 0 15px 0;
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+}
+.nav-pasang:hover{text-decoration:underline}
+
+/*
+ * Articles ...
+ */
+#cent{
+  position:relative;
+  margin:0 0 0 300px;
+}
+#article{
+  padding:90px 30px 30px 40px;
+  font-size:15px;
+  max-width:800px;
+}
+#article h1{
+  display:inline-block;
+  width:450px;
+  max-width:100%;
+  font-weight:700;
+  font-size:40px;
+  letter-spacing:-2px;
+  line-height:38px;
+  margin:0 0 20px 0;
+}
+#article img{
+  border:#336699 solid 1px;
+  max-width:100%;
+}
+#article-stats{
+  position:absolute;
+  left:500px;
+  border-left:#336699 solid 1px;
+  padding:0 10px;
+  line-height:12px;
+}
+#article-stats &gt; e{
+  display:block;
+  font-size:11px;
+}
+#article-contact{
+  margin:30px 0 0 0;
+  border-top:#eeeeee solid 1px;
+  padding:30px 20px 30px 0;
+  white-space: initial;
+}
+#article-contact &gt; e{
+  display:block;
+  font-size:12px;
+}
+
+/* side */
+#side{
+  position:absolute;
+  top:0;
+  left:0;
+  padding:30px 0 100px 0;
+  margin:0 0 0 0;
+  width:300px;
+  background:#eee;
+}
+#side:before{
+  position:fixed;
+  top:0;
+  left:0;
+  width:300px;
+  height:100%;
+  background:#eee;
+  box-shadow:inset 0 0 2px rgba(0,0,0,0.1);
+  padding:0 0 300px 0;
+}
+#side-icon{
+  z-index:1;
+  position:relative;
+  height:150px;
+  background-position:left 30px top 30px;
+  background-repeat:no-repeat;
+  background-size:100px;
+  background-image:url(//imgh.us/indosupplier-crops.svg); 
+}
+#side-category{
+  z-index:1;
+  position:relative;
+  padding:0 30px;  
+  line-height:14px;
+}
+.side-category-title{
+  display:inline-block;
+  font-size:16px;
+  font-weight:700;
+  padding:14px 0 4px 0;
+}
+.side-category-title:after{
+  content:attr(count);
+  background:#4095bf;
+  color:#fff;
+  padding:0 2px;
+  border-radius:5px;
+  font-size:9px;
+  font-weight:700;
+  margin:0 0 0 4px;
+}
+.side-category-item{
+  display:inline-block;
+  font-size:13px;
+  padding-left:6px;
+  height:15px;
+  max-width:250px;
+  overflow-x:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.side-category-item:hover{
+  text-decoration:underline;
+  cursor:pointer;
+}
+.side-d-on{
+  font-weight:700;
+  text-decoration:underline;
+}
+
+
+
+/*
+ * Media queries ...
+ */
+/* under 1050px */
+@media (max-width: 1050px){
+  #map,
+  #side:before
+    {display:none}
+  #nav{
+    position:relative;
+    padding-top:10px;
+  }
+  #cent{
+    position:relative;
+    width:100%;
+    margin:0;
+  }
+  #article{
+    padding:30px;
+  }
+  #article-stats{
+    position:relative;
+    left:0;
+    margin:0 0 20px 0;
+  }
+  #side{
+    position:relative;
+    width:100%;
+    margin:0;
+  }
+  .nav-pasang{
+    position:relative;
+    right:auto;
+  }
+  .nav-search{
+    display:block!important;
+    margin:15px 0 0 0;
+  }
+  .nav-search-input{
+    width:98%!important;
+  }
+  .side-category-item{
+    max-width:90%;
+  }
+}
+/* under 600px */
+@media (max-width: 600px){
+  .nav-logo{
+    margin-right:500px!important;
+  }
+}
