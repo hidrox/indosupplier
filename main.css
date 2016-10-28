@@ -1,420 +1,274 @@
-
-/* 
- * main ...............................
- */
-
-#blog{display:none}
-
 *{
   padding:0;
   margin:0;
   border:0;
   outline:0;
-  cursor:default;
   box-sizing:border-box;
-  zoom:1;
+  cursor:default;
 }
-::before,
-::after{content:'';position:absolute}
-
 html{
-  background:#fff;
+  position:relative;
+  background:#ddd;
   color:#555;
-  font:500 16px 'Helvetica Neue','Helvetica','Liberation Sans',arial;
 }
-a{
+html,a,input,select{
+  font:500 14px 'Helvetica Neue','Helvetica','Liberation Sans',arial;
   text-decoration:none;
-  color:#555;
-  cursor:pointer;
 }
-
-
-
-
-
-
-
-
-
-
-/* 
- * Home ...............................
- */
-
-
-#logo{
-  margin-top:60px;
-  width:100%;
-  text-align:center;
+h1{font-size:20px}
+.b{
+  user-select:none;
+  -moz-user-select:none;
+  -webkit-user-select:none;
 }
+a:hover{text-decoration:underline}
+::before,::after{content:'';position:absolute;pointer-events:none}
 
 
-/* Maps */
-
-#map-cover{
-  position:relative;
-  width:100%;
-  text-align:center;
-  margin-top:30px;
-}
-#map-wrapper{
-  position:relative;
+#center{text-align:center;}
+#center > div{
   display:inline-block;
-  width:800px;
-  margin-left:-50px;
-}
-#map-svg{
-  width:800px;
-}
-path{
-  transition: all 300ms;
-}
-path:hover{
-  fill:#ccc;
-}
-.sv-green{
-  fill:#7da81d!important;
-}
-#map-tooltip{
-  position:absolute;
-  display:block;
-  top:0;
-  left:0;
-  color:#4d4d4d;
-  font-size:14px;
-  font-weight:900;
-  line-height:14px;
-}
-#map-tooltip > b{
- font-weight:700;
- font-size:12px;
-}
-.map-dot{
-  position:absolute;
-  display:block;
-  padding:0 2px;
-  background:;
-  color:#333;
-  border-radius:2px;
-  font-size:10px;
-  font-weight:700;
-  z-index:1;
-}
-
-
-/* Search  */
-
-#search{
-  position:relative;
   width:100%;
-  text-align:center;
-  margin-top:50px;
-  background:#f7f7f7;
-  padding:10px 0;
 }
-#search-input{
-  position:relative;
-  width:600px;
-  height:50px;
-  background:#fff;
-  color:#336699;
-  border:#336699 solid 2px;
-  border-top-left-radius:8px;
-  border-bottom-left-radius:8px;
-  font-size:20px;
-  font-family:arial;
-  padding:0 20px;
-}
-#search-submit{
-  width:80px;
-  height:50px;
-  background:#336699;
+
+#head{
   color:#fff;
-  text-align:center;
+  padding:30px 30px;
+  background:green;
+}
+#nama{
   font-size:20px;
-  font-family:arial;
-  border-top-right-radius:8px;
-  border-bottom-right-radius:8px;
-  margin-left:-5px;
 }
-#search-location{
-  position:absolute;
-  width:46px; 
-  height:46px; 
-  margin:2px 0 0 -54px;
-  font-size:16px;
-  font-family:arial;
-  line-height:100px;
-  background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2012L1.94%204.5L14.06%204.5z%22%20fill%3D%22%23336699%22/%3E%3C/svg%3E");
-  background-repeat:no-repeat;
-  background-position:center;
-  -webkit-appearance:none;
-  -moz-appearance:none;
-  appearance:none;
-  text-indent: -100px; 
-}
-
-/* Category  */
-
-#category{
-  position:relative;
-  width:100%;
-  text-align:center;
-  margin-top:20px;
-}
-#category > a{
-  display:inline-block;
-  width:120px;
-  height:100px;
-  text-align:center;
-  background-size:60px;
-  background-position:center center;
-  background-repeat:no-repeat;
-  vertical-align:top;
-  margin:40px 0 0 0;
-  padding:94px 0 0 0;
-  font-size:15px;
-  font-weight:700;
-  line-height:17px;
-  transition: all 300ms;
-}
-
-#category > a:hover{
-  transform: scale(1.2);
-}
-
-.Agraris{ background-image:url(http://imgh.us/indosupplier-crops.svg) }
-.Makanan{ background-image:url(http://imgh.us/indosupplier-egg.svg) }
-.Fashion{ background-image:url(http://imgh.us/indosupplier-tie.svg) }
-.Hobi{ background-image:url(http://imgh.us/indosupplier-soccer.svg) }
-.Kesehatan{ background-image:url(http://imgh.us/indosupplier-hospital.svg) }
-.Elektronik{ background-image:url(http://imgh.us/indosupplier-cpu.svg) }
-.Otomotif{ background-image:url(http://imgh.us/indosupplier-car.svg) }
-
-.Perabot{ background-image:url(http://imgh.us/indosupplier-chair.svg) }
-.Industri{ background-image:url(http://imgh.us/indosupplier-machine.svg) }
-.Kreatif{ background-image:url(http://imgh.us/indosupplier-green.svg) }
-.Konstruksi{ background-image:url(http://imgh.us/indosupplier-gerobak.svg) }
-.Properti{ background-image:url(http://imgh.us/indosupplier-property.svg) }
-.Jasa{ background-image:url(http://imgh.us/indosupplier-engineer.svg) }
-.Sewa{ background-image:url(http://imgh.us/indosupplier-price.svg) }
-
-#Info{
-  position:relative;
-  width:100%;
-  text-align:center;
-  margin-top:100px;
-}
-.Call{
-  display:inline-block;
-  background:#469315;
-  color:#fff;
-  padding:8px 14px;
-  border-radius:3px;
-  font-weight:700;
-  font-size:18px;
-}
-
-
-/* footer  */
-
-footer{
-  margin-top:60px;
-  padding:50px 0;
-  text-align:center;
-}
-footer > span{
-  margin-left:20px;
-}
-
-
-
-
-
-
-
-
-
-
-/* 
- * Articles ...............................
- */
- 
- h1{
-  display:inline-block;
-  max-width:500px;
-  font-weight:700;
-  font-size:40px;
-  letter-spacing:-2px;
-  line-height:38px;
-  margin:0 0 20px 0;
-}
-h2{
-  font-size:30px;
-}
-h3{
-  display:inline-block;
-  font-weight:700;
-  font-size:24px;
-  letter-spacing:-1px;
-  margin:0 0 10px 0;
-}
+#email{}
 
 
 #nav{
-  position:fixed;
-  margin-top:px;
-  height:44px;
-  width:100%;
-  border-bottom:#2e7203 solid 1px;
-  background-color:#469315;
-  background-image:url(http://imgh.us/indosupplier-logo-tipis.png);
-  background-position:left 30px top 8px;
-  background-repeat:no-repeat;
-  z-index:1;
+  background:#006700;
   color:#fff;
-  padding:12px 0 0 0;
+  height:40px;
 }
-
-#nav-location{
-  display:inline-block;
-  font-size:16px;
-  font-weight:700;
-  margin-left:40px;
-}
-#nav-category{
-  display:inline-block;
-  font-size:14px;
-  font-weight:700;
-  margin-left:280px;
-}
-
-#Preloader{
-  position: absolute;
-  left: 240px;
-}
-
-#nav-location:before,
-#nav-category:before{
-  width:0; 
-  height:0; 
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid #fff;
-  margin:8px 0 0 -14px;
-}
-
-#nav-add{
-  position:absolute;
-  display:inline-block;
-  top:10px;
-  right:30px;  
-  background:#ffc926;
-  color:#333;
-  border-radius:2px;
-  font-size:14px;
-  font-weight:700;
-  padding:4px 8px;
-  font-size:12px;
-  font-weight:900;
-}
-
-
-
-/* Side ............................... */
-
-#side{
-  position:absolute;
-  top:40px;
-  left:0;
-  width:300px;
-  min-height:calc(100% - 40px);
-  background:#eee;
-  box-shadow:inset 0 0 2px rgba(0,0,0,0.1);
-  padding:0 0 100px 0;
-}
-#side-icon{
-  height:150px;
-  background-position:left 30px top 30px;
-  background-repeat:no-repeat;
-  background-size:100px;
-  background-image:url(http://imgh.us/indosupplier-crops.svg); 
-}
-
-#side-category{
-  padding:0 30px;  
-  line-height:14px;
-}
-.side-category-title{
-  display:table;
-  font-size:16px;
-  font-weight:700;
-  padding:14px 0 4px 0;
-}
-.side-category-title:after{
-  content:attr(count);
-  background:#4095bf;
-  color:#fff;
-  padding:0 2px;
-  border-radius:1px;
-  font-size:9px;
-  font-weight:700;
-  margin:0 0 0 4px;
-}
-.side-category-item{
-  display:inline-block;
-  font-size:13px;
-  padding-left:6px;
-  max-width:250px;
-  overflow-x:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-.side-category-item:hover{
-  text-decoration:underline;
+#nav > div{
+  display:none;
+  margin:12px 20px 0 0;
   cursor:pointer;
+  opacity:0.5;
+  vertical-align:center;
+}
+#nav .on,
+#nav > div:hover{
+  opacity:1;
 }
 
 
 
-/* Article ............................... */
+::-webkit-scrollbar{display:none}
+#main{
+  overflow:scroll;
+  overflow:-moz-scrollbars-none;
+}
+#main-cov{
+  background:black;
+  width:200%!important;
+  text-align:left;
+}
+#main-cov > div{
+  display:none;
+  position:relative;
+  float:left;
+  width:calc(100% / 2);
+  min-height:100px;
+  vertical-align:top;
+  text-align:center;
+  padding:30px;
+}
 
-#article{
-  position:absolute;
-  top:50px;
-  left:300px;
-  padding:50px 100px 100px 40px;
-  font-size:15px;
-  max-width:800px;
+
+/*
+ * Iklan
+ */
+.iklan{
+  position:relative;
+  display:inline-block;
+  background:#fff;
+  padding:30px 30px 20px 30px;
+  margin:0 30px 30px 0;
+  text-align:left;
+  width:500px;
+  max-width:100%;
+  vertical-align:top
 }
-#article img{
-  border:#336699 solid 1px;
+
+.iklan > div{
+  margin:0 0 18px 0;
+  color:#333;
+  border-bottom:#fff solid 1px;
 }
-#article-content{
-  white-space:pre-wrap;
-}
-#article-statistik{
-  position:absolute;
-  margin:0 0 0 450px;
-  border-left:#336699 solid 1px;
-  padding:0 10px;
-  line-height:12px;
-}
-#article-statistik > small{
+.iklan > div:before{
   font-size:11px;
+  font-weight:500;
+  font-style:italic;
+  content:attr(t);
+  margin:-12px 0 0 0;
+  color:#999;
+}
+.i-judul:before{
+  letter-spacing:0;
+  line-height:10px;
+}
+.i-status{
+  font-weight:bold;
+}
+.i-status > span{
+  text-decoration:underline;
+  font-weight:500;
+}
+.i-foto{
+  width:100%;
+}
+.i-upload{
+  display:none;
+}
+.i-judul{
+  font-size:28px;
+  font-weight:700;
+  letter-spacing:-1px;
+  line-height:25px;
+}
+.i-isi{
+  margin:30px 0 0 0!important;
+  padding-bottom:20px!important;
+  margin-bottom:30px!important;
+  border-bottom:.aaa dashed 1px;
+}
+.i-nama{
   font-weight:700;
 }
-#article-statistik b{
-  font-weight:900;
+.i-count{
+  position:absolute;
+  top:30px;
+  right:28px;
+  font-size:40px;
+  font-weight:700;
+  color:#ddd!important;
+  letter-spacing:-1px;
 }
-#article-contact{
+
+.i-editcov{margin-bottom:30px!important;}
+.i-editcov > div{
+  background:#469315;
+  color:#fff;
+  padding:4px 15px;
+  margin:0 4px 0 0;
+  display:none;
+}
+.i-edit,
+.i-cancel{background:#ddd!important;color:#666!important;}
+
+
+/*
+ * Account
+ */
+#account{
+  position:relative;
+  display:inline-block;
+  background:#fff;
+  padding:50px 30px 20px 30px;
+  margin:0 30px 30px 0;
+  text-align:left;
+  max-width:500px;
+  width:100%;
+}
+#account > div{
+  margin:0 0 20px 0;
+  color:#333;
+}
+#account > div:before{
+  left:30px;
+  font-size:11px;
+  font-weight:500;
+  font-style:italic;
+  content:attr(t);
+  margin:-12px 0 0 0;
+  color:#999;
+}
+.ed[contenteditable],
+.iklan select{
+  border-bottom:#ffcb33 solid 1px;
+  background:#ffffbf;
+  cursor:text!important;
+}
+
+
+
+
+
+/*
+ * Login
+ */
+#register,
+#login{
+  position:relative;
+  display:inline-block;
+  background:#fff;
+  padding:30px;
+  margin:0 30px 30px 0;
+  text-align:left;
+  width:500px;
+  max-width:100%;
+  vertical-align:top
+}
+
+#register input,
+#login input{
+  display:block;
+  width:100%;
+  height:30px;
+  line-height:30px;
+  font-size:16px;
+  font-weight:700;
+  border-bottom:#ddd solid 1px;
+  color:#555;
+  margin:5px 0 0 0;
+  cursor:text!important;
+}
+#register input:focus,
+#login input:focus,
+#register input:hover,
+#login input:hover{
+  border-bottom:#469315 solid 1px;  
+}
+.t-login:hover{opacity:0.9}
+.t-login{
+  display:inline-block;
+  padding:4px 12px;
+  background:green;
+  color:#fff;
+  font-size:16px;
+  border-radius:2px;
+  margin-top:20px;
+}
+:invalid{box-shadow:none;border-bottom:red solid 1px!important;}
+.info{
   margin:30px 0 0 0;
-  border-top:#eeeeee solid 1px;
-  padding:30px 20px;
-}
-.article-contact-nama{
-  
 }
 
-
-
+#warn{
+  background:#ffcb33;
+  border-bottom:#cc9800 solid 1px;
+  color:#333;
+  padding:10px 0;
+}
+#a-reset:before{margin-top:-17px!important;}
+#a-reset:hover{opacity:0.8;}
+#a-reset{
+  display:inline-block;
+  background:#ffcb33;
+  color:#333!important;
+  border-radius:2px;
+  padding:2px 8px;
+  margin-top:25px;
+}
+.i-delete{
+  background:#ffcb33!important;
+  color:#333!important;
+}
