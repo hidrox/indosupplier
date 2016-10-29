@@ -252,6 +252,14 @@ function Indosupplier(){
     return x
   }
 
+  // add iklan
+  $('.nav-pasang').on('click',function(){
+    $('#dialog-cov').fadeIn(300)
+  });
+  $('#dialog-cov').on('click',function(e){
+    this===e.target && $('#dialog-cov').hide()
+  });
+    
   // search
   $('.cari-submit').on('click',function(){
     var v=$('.cari-input').val();
