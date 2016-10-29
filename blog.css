@@ -94,7 +94,7 @@ path:hover,
   position:absolute;
   display:none;
   padding:0 4px 1px 4px;
-  background:#e34038;
+  background:#336699;
   color:#fff;
   border-radius:2px;
   font-size:10px;
@@ -158,8 +158,6 @@ path:hover,
   background:none;
   color:#336699;
   border:#336699 solid 2px;
-  border-top-left-radius:8px;
-  border-bottom-left-radius:8px;
   font-size:20px;
   padding:0 20px;
   margin:30px 0;
@@ -172,8 +170,6 @@ path:hover,
   text-align:center;
   font-size:20px;
   font-family:arial;
-  border-top-right-radius:8px;
-  border-bottom-right-radius:8px;
   margin:-5px;
 }
 .cari-submit:hover{
@@ -197,10 +193,9 @@ path:hover,
   display:inline-block;
   background:#469315;
   color:#fff;
-  padding:3px 10px;
+  padding:2px 8px;
   font-weight:700;
   font-size:13px;
-  border-radius:2px;
   margin:20px 0 0 50px;
 }
 
