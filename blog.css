@@ -352,8 +352,7 @@ path:hover,
   text-align:left;
   font-size:24px;
   font-weight:500;
-  box-shadow:0 0 20px rgba(0,0,0,0.2);
-  border-radius:2px;
+  box-shadow:0 0 30px rgba(0,0,0,0.2);
 }
 #dialog-box > div{
   display:inline-block;
