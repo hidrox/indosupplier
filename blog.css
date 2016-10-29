@@ -354,14 +354,15 @@ path:hover,
   font-weight:500;
   box-shadow:0 0 30px rgba(0,0,0,0.2);
 }
-#dialog-box > div{
+#dialog-box > a{
   display:inline-block;
   margin-top:30px;
   font-size:16px;
   letter-spacing:0;
   padding-right:10px;
+  color:#fff;
 }
-#dialog-box > div:hover{
+#dialog-box > a:hover{
   text-decoration:underline;
   cursor:pointer;
 }
