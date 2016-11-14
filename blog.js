@@ -1,4 +1,4 @@
-
+//<![CDATA[
 
 /*
  * lib js
@@ -341,7 +341,9 @@ function Indosupplier(){
           });
               hx="<div class='side-category-cov'>"+
                   "<t class='side-category-title' count='"+cx+"'>Lainnya</t><br>"+hx+"</div>";
-          $('#side-category').html(h1+hx);
+          $('#side-category')
+            .html(h1+hx)
+          .find('.side-category-cov:eq(0) > d:eq(0)').click();
         }
       }
     );
@@ -401,4 +403,4 @@ if(document.location.toString().indexOf('/p/id-')>-1){
 }else{
   Indosupplier()
 }
-
+//]]>
