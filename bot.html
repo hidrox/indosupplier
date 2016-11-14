@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BloggerBotz v0.1/FXR</title>
+<meta charset='utf-8' />
+<script src='//code.jquery.com/jquery-3.1.1.min.js'></script>
+</head>
+<style>
+*{
+  padding:0;
+  margin:0;
+  border:0;
+  outline:0;
+  box-sizing:border-box;
+  cursor:default;
+}
+html{
+  position:relative;
+  background:#111;
+  color:#aaa;
+  padding:30px;
+  word-wrap:break-word;
+}
+html,a,input,select{
+  font:500 11px consolas;
+  text-decoration:none;
+}
+#bot,
+#bot:after{
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;}
+#bot{
+  display:none;
+  position:absolute;top:44px;left:320px;
+  border-top: 2px solid #111;
+  border-right: 2px solid #111;
+  border-bottom: 2px solid #111;
+  border-left: 2px solid green;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;}
+@-webkit-keyframes load8{
+  0%{-webkit-transform: rotate(0deg);transform: rotate(0deg)}
+  100%{-webkit-transform: rotate(360deg);transform: rotate(360deg)}}
+@keyframes load8{
+  0%{-webkit-transform: rotate(0deg);transform: rotate(0deg)}
+  100%{-webkit-transform: rotate(360deg);transform: rotate(360deg)}}
+
+h1{font-size:20px;padding:10px 0;}
+.button{user-select:none;-moz-user-select:none;}
+a:hover{text-decoration:underline}
+::before,::after{content:'';position:absolute}
+
+.ver{font-size:10px;padding-left:10px;}
+
+
+
+button{padding:3px 8px;background:green;color:#fff;}
+button:focus{opacity:0.5!important;}
+button:hover{opacity:0.9;}
+button.grey{background:#444;color:#ccc;}
+#button{margin:0 0 10px 0;}
+#button > button{
+  display:none;
+}
+#x-logout{margin-right:15px;}
+#status{color:#b39a00;margin:0 0 6px 0;font-size:11px;font-weight:700;}
+#content{
+  display:none;
+}
+
+/*
+ * POST
+ */
+#post-form > textarea{
+  height:400px;
+  width:600px;
+  max-width:100%;
+  padding:6px;
+  border-left:green solid 1px;
+  background:#0c0c0c;
+  resize:none;
+  color:#aaa;
+  cursor:auto;
+  font-size:11px;
+}
+#post-details{
+  display:inline-block;
+  height:110px;
+  width:250px;
+  vertical-align:top;
+  color:#0a0;
+}
+#post-log{
+  display:inline-block;
+  height:96px;
+  width:950px;
+  max-width:100%;
+  vertical-align:top;
+  font-size:10px;
+  color:#0a0;
+  overflow-y:scroll;
+  overflow-y:-moz-scrollbars-none;
+}
+#post-log::-webkit-scrollbar{display:none}
+
+</style>
+<body>
+  <div id='bot'></div>
+  <h1>Blogger AutoBot<span class='ver'>v0.1-FXR/16.11.08</span></h1>
+  <div id='button'>
+    <button id='x-login'>Authorize</button>
+    <button id='x-logout' class='in'>Sign Out</button>
+    <button id='x-blog-get' class='in grey'>Blog Info</button>
+    <button id='x-post-insert' class='in grey'>Execute</button>
+  </div>
+  <div id='status'></div>
+  <div id='content'>
+    <div id='c-post'>
+      <div id='post-form'>
+        <div id='post-details'></div>
+        <div id='post-log'></div>
+<!-- begin template -->
+<textarea id='post-template'>
+"title": "{{2}}",
+"labels": {{1}},
+"content":
+"
+Hasil pencarian untuk supplier {{2}}.
+{{3}}.
+
+Indosupplier.co.id, direktori supplier terlengkap di seluruh Indonesia.
+Lihat juga suplier {{cat}}. List berdasarkan lokasi: {{loc}}.
+
+<span class='show'>Daftar dan pasang iklan Anda di sini. <a href='p/daftar.html' target='blank'>Daftar</a></span>
+
+"
+</textarea>
+<textarea id='post-vars'>
+agraris,pupuk|Pupuk Kandang Sapi|Pupuk sapi siap pakai, Pupuk kotoran sapi masi anget.
+agraris,pupuk|Pupuk Organik Gabah|
+agraris,pupuk|Pupuk NH3NooX|Pupuk kimia yang sangat berbahaya
+agraris,pupuk|Pupuk Palsu|
+agraris,pupuk|Pupuk Kandang Sapi|Pupuk sapi siap pakai, Pupuk kotoran sapi masi anget.
+agraris,pupuk|Pupuk Organik Gabah|
+agraris,pupuk|Pupuk NH3NooX|Pupuk kimia yang sangat berbahaya
+agraris,pupuk|Pupuk Palsu|
+agraris,pupuk|Pupuk Kandang Sapi|Pupuk sapi siap pakai, Pupuk kotoran sapi masi anget.
+agraris,pupuk|Pupuk Organik Gabah|
+agraris,pupuk|Pupuk NH3NooX|Pupuk kimia yang sangat berbahaya
+agraris,pupuk|Pupuk Palsu|
+agraris,pupuk|Pupuk Kandang Sapi|Pupuk sapi siap pakai, Pupuk kotoran sapi masi anget.
+agraris,pupuk|Pupuk Organik Gabah|
+agraris,pupuk|Pupuk NH3NooX|Pupuk kimia yang sangat berbahaya
+agraris,pupuk|Pupuk Palsu|</textarea>
+<!-- end template -->
+      </div>
+    </div>
+  </div>
+
+
+
+<script>
+'use strict';
+var F={};
+var scope = 'https://www.googleapis.com/auth/blogger';
+var apiKey = 'AIzaSyAjFkHF4PO3qCGPfhncM27KNYW3SzlHaiE';
+var blogId = '1048694498853011397';
+var clientId = '402762173507-sntf06mnc81fkpi1o37lkc8sdrfib3k3.apps.googleusercontent.com';
+var discoveryDocs = ['https://content.googleapis.com/discovery/v1/apis/blogger/v3/rest'];
+
+function log(s){$('#post-log').prepend(s+'<br>')};log('Service started at '+(new Date().toLocaleString()));
+function status(s){$('#status').text(s)};
+function bot(n){n===0?$('#bot').fadeOut():$('#bot').show()};
+// sentence case
+String.prototype.toProperCase = function(){
+    return this.replace(/\w\S*/g, function(txt){
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+};
+
+
+function masuk(){
+  $('#button > button')
+    .css('display','inline-block').siblings(':not(.in)')
+    .css('display','none');
+  $('#content').show();
+  status('Hello.');
+  $('#x-blog-get').click();
+}
+function keluar(){
+  $('#button > button')
+    .css('display','inline-block').siblings('.in')
+    .css('display','none');
+  $('#content').hide();
+  status('Please login first.');
+}
+
+
+// auth
+// OAuth2 Authorization
+F.auth={
+  start: function(){ bot(1);
+    gapi.load('client:auth2', F.auth.init)
+  },
+  init: function(){
+    gapi.client.init({
+        apiKey: apiKey,
+        discoveryDocs: discoveryDocs,
+        clientId: clientId,
+        scope: scope
+    }).then(function(){
+      // Listen for sign-in state changes.
+      gapi.auth2.getAuthInstance().isSignedIn.listen(F.auth.status);
+      // Handle the initial sign-in state.
+      F.auth.status(gapi.auth2.getAuthInstance().isSignedIn.get());
+      $('#x-login').on('click',function(){gapi.auth2.getAuthInstance().signIn()});
+      $('#x-logout').on('click',function(){gapi.auth2.getAuthInstance().signOut()});
+      bot(0);
+    },function(reason){
+      console.log(reason);bot(0);
+    });
+  },
+  status: function(isSignedIn){
+    isSignedIn ? masuk() : keluar();
+  }
+};
+
+// api
+// Blogger Api-v3
+F.api={
+  getBlogDetail: function(cb){ bot(1);
+    gapi.client.blogger.blogs.get({
+      blogId: blogId,
+      fields: 'id,url,name,published,updated,posts/totalItems,pages/totalItems',
+      prettyPrint: false
+    }).then(function(response){
+      cb(response.result);bot(0);
+    },function(reason){
+      console.log(reason);bot(0);
+    });
+  },
+  insertPost: function(body,cb){
+    gapi.client.blogger.posts.insert(body).then(function(response){
+      cb(response.result);
+    },function(reason){
+      console.log(reason);bot(0);
+    });
+  }
+};
+
+F.bot={
+  data: [],
+  prepare: function(){
+    F.bot.data=[];
+    var vars=$('#post-vars').val();
+    var temp=$('#post-template').val();
+     // cek vars
+     if((vars.match(/\|/g)||[]).length/2 !== 
+         vars.split('\n').length){
+          log('Error: Invalid "vars"');
+          return
+       }
+        vars=vars.split('\n');
+    for(var i=0;i<vars.length;i++){
+      vars[i]=vars[i].split('|');
+      var labels=vars[i][0].split(',');
+          labels.push('(BOT)');
+      var x=temp
+        .replace(/\{\{1\}\}/g,JSON.stringify(labels))
+        .replace(/\{\{2\}\}/g,vars[i][1])
+        .replace(/\{\{3\}\}/g,vars[i][2])
+        .replace(/\{\{loc\}\}/g,Loc)
+        .replace(/\{\{cat\}\}/g,Cat)
+        .replace(/\{|\}/g,'')
+        .replace(/\n/g,' ');
+      x=JSON.parse('{'+x+'}');
+      F.bot.data.push(x);
+    }
+    //console.log(F.bot.data);
+  }
+}
+
+
+
+// blog-get
+// get blog statistics
+$('#x-blog-get').on('click',function(){
+  var el=$(this);
+  F.api.getBlogDetail(function(r){
+    $('#post-details').html('\
+      Id: '+r.id+'<br>\
+      Url: '+r.url.replace(/\//g,'').replace('http:','')+'<br>\
+      Title: '+r.name+'<br>\
+      Created: '+r.published.replace('T',' ')+'<br>\
+      Updated: '+r.updated.replace('T',' ')+'<br>\
+      Posts: '+r.posts.totalItems+'<br>\
+      Pages: '+r.pages.totalItems+'<br>');
+    el.blur();
+  });
+});
+
+
+// post-insert
+// start bot auto-post
+$('#x-post-insert').on('click',function(){
+  var el=$(this);
+  if($('#bot').is(':visible'))return;
+  if(el.text()==='Execute'){
+    el.text('Really execute..?').blur();
+    setTimeout(function(){el.text('Execute')},3000);
+    return }
+  F.bot.prepare();
+  log('Prepared '+F.bot.data.length+' items.');
+  //return;
+  var i=0;
+  bot(1);
+  status('Bot running..');
+  function go(){
+    if(i>=F.bot.data.length){bot(0);status('Finished.');return};
+    F.bot.data[i].blogId=blogId;
+    F.api.insertPost(
+      F.bot.data[i],
+      function(r){
+        log('Created: '+r.url);
+        el.text('Execute').blur();
+        i++;
+        go();
+    });
+  }go();
+});
+
+
+var Category=[
+'agraris',
+'makanan',
+'kesehatan',
+'hobi',
+'fashion',
+'elektronik',
+'mobil',
+'perabot-atk',
+'industri',
+'kreatif',
+'konstruksi',
+'properti',
+'jasa',
+'sewa' ];
+var Province=[
+'aceh:1',
+'bali:1',
+'banten:1',
+'bengkulu:1',
+'gorontalo:1',
+'jakarta:1',
+'jambi:1',
+'jawa_barat:1',
+'jawa_tengah:1',
+'jawa_timur:1',
+'kalimantan_barat:1',
+'kalimantan_selatan:1',
+'kalimantan_tengah:1',
+'kalimantan_timur:1',
+'kalimantan_utara:1',
+'kepulauan_bangka:1',
+'kepulauan_riau:1',
+'lampung:1',
+'maluku:1',
+'maluku_utara:1',
+'nusa_tenggara_barat:1',
+'nusa_tenggara_timur:1',
+'papua:1',
+'papua_barat:1',
+'riau:1',
+'sulawesi_barat:1',
+'selawesi_selatan:1',
+'sulawesi_tengah:1',
+'sulawesi_tenggara:1',
+'sulawesi_utara:1',
+'sumatera_barat:1',
+'sumatera_selatan:1',
+'sumatera_utara:1',
+'yogyakarta:5'];
+
+
+
+var Cat='';
+var Loc='';
+function genLocCat(){
+  for(var i=0;i<Category.length;i++){
+    Cat+=Category[i]
+      .toProperCase()+', ';
+  }
+  for(var i=0;i<Province.length;i++){
+    Loc+=Province[i].split(':')[0]
+      .replace(/_/g,' ')
+      .toProperCase()+', ';
+  }
+} genLocCat();
+
+
+
+</script>
+<script async defer src='https://apis.google.com/js/api.js'
+  onload='this.onload=function(){};F.auth.start()'
+  onreadystatechange='this.readyState==="complete"&&this.onload()'>
+</script>
+</body>
+</html>
+
+
