@@ -486,12 +486,13 @@ path:hover,
   text-decoration:underline;
 }
 #side-foot{
+  z-index:1;
+  position:relative;
   padding:50px 30px;
   font-size:12px;
 }
 #side-foot > span{
   padding:0 10px 0 0;
-  font-size:12px;
 }
 
 
